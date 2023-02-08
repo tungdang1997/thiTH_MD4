@@ -9,8 +9,11 @@ declare class HomeController {
     remove: (req: Request, res: Response) => Promise<void>;
     findById: (req: Request, res: Response) => Promise<void>;
     findByName: (req: Request, res: Response) => Promise<void>;
+    findByAboutPrice: (req: Request, res: Response) => Promise<void>;
+    findByAboutQuantity: (req: Request, res: Response) => Promise<void>;
     findByBrand: (req: Request, res: Response) => Promise<void>;
     sortPrice: (req: Request, res: Response) => Promise<void>;
+    sortQuantity: (req: Request, res: Response) => Promise<void>;
 }
 declare const _default: HomeController;
 export default _default;

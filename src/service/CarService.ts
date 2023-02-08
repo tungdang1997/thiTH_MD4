@@ -47,6 +47,34 @@ class CarService {
         return brand;
     }
 
+    findByAboutPrice = async ()=>{
+        console.log(1)
+        let sql = `select c.id,c.name,c.price,c.quantity,b.nameBrand, b.describe from car c join brand b on c.brand = b.idBrand where c.price BETWEEN 5 AND 9`
+        let price = await this.carRepository.query(sql);
+        console.log(price)
+        if (!price){
+            return null;
+        }
+        return price
+    }
+
+    findByAboutQuantity = async ()=>{
+        let sql = `select * from car c join brand b on c.brand = b.idBrand where c.quantity BETWEEN 0 AND 10`
+        let price = await this.carRepository.query(sql);
+        if (!price){
+            return null;
+        }
+        return price
+    }
+    findByMaxCar = async ()=>{
+        let sql = `select MAX(car) from brand join car on brand.idBrand = car.brand`
+        let price = await this.carRepository.query(sql);
+        if (!price){
+            return null;
+        }
+        return price
+    }
+
     // private findByBrand = async (name)=>{
     //     let sql =`select c.id,c.name,c.price,c.quantity,b.name as nameBrand, b.describe from card c join brand b on p.category = c.id where b.name like '%${name}%'`
     //     let brand = await this.cardRepository.query(sql);
@@ -66,9 +94,15 @@ class CarService {
     }
 
     sortPriceASC = async()=>{
-        let sql = `select * from car order by car.price ASC `
+        let sql = `select * from car join brand on car.brand = brand.idBrand order by car.price ASC `
         let sort = await this.carRepository.query(sql);
         return sort
+
+    }
+    sortDownByQuantity = async ()=>{
+        let sql = `select * from car order by car.quantity DESC`
+        let car = await this.carRepository.query(sql)
+        return car
 
     }
 

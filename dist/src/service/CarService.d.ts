@@ -7,8 +7,12 @@ declare class CarService {
     private findById;
     private findByName;
     private findByBrand;
+    findByAboutPrice: () => Promise<any>;
+    findByAboutQuantity: () => Promise<any>;
+    findByMaxCar: () => Promise<any>;
     private remove;
     sortPriceASC: () => Promise<any>;
+    sortDownByQuantity: () => Promise<any>;
 }
 declare const _default: CarService;
 export default _default;

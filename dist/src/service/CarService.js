@@ -42,6 +42,32 @@ class CarService {
             }
             return brand;
         };
+        this.findByAboutPrice = async () => {
+            console.log(1);
+            let sql = `select c.id,c.name,c.price,c.quantity,b.nameBrand, b.describe from car c join brand b on c.brand = b.idBrand where c.price BETWEEN 5 AND 9`;
+            let price = await this.carRepository.query(sql);
+            console.log(price);
+            if (!price) {
+                return null;
+            }
+            return price;
+        };
+        this.findByAboutQuantity = async () => {
+            let sql = `select * from car c join brand b on c.brand = b.idBrand where c.quantity BETWEEN 0 AND 10`;
+            let price = await this.carRepository.query(sql);
+            if (!price) {
+                return null;
+            }
+            return price;
+        };
+        this.findByMaxCar = async () => {
+            let sql = `select MAX(car) from brand join car on brand.idBrand = car.brand`;
+            let price = await this.carRepository.query(sql);
+            if (!price) {
+                return null;
+            }
+            return price;
+        };
         this.remove = async (id) => {
             let product = await this.carRepository.findOneBy({ id: id });
             if (!product) {
@@ -50,9 +76,14 @@ class CarService {
             return this.carRepository.delete({ id: id });
         };
         this.sortPriceASC = async () => {
-            let sql = `select * from car order by car.price ASC `;
+            let sql = `select * from car join brand on car.brand = brand.idBrand order by car.price ASC `;
             let sort = await this.carRepository.query(sql);
             return sort;
+        };
+        this.sortDownByQuantity = async () => {
+            let sql = `select * from car order by car.quantity DESC`;
+            let car = await this.carRepository.query(sql);
+            return car;
         };
         this.carRepository = data_source_1.AppDataSource.getRepository(car_1.Car);
     }

@@ -77,6 +77,31 @@ class HomeController {
                 });
             }
         };
+        this.findByAboutPrice = async (req, res) => {
+            console.log(1);
+            try {
+                let price = req.query.price;
+                let p = await this.carService.findByAboutPrice(price);
+                res.status(200).json(p);
+            }
+            catch (e) {
+                res.status(500).json({
+                    message: e.message
+                });
+            }
+        };
+        this.findByAboutQuantity = async (req, res) => {
+            try {
+                let quantity = req.query.quantity;
+                let q = await this.carService.findByAboutPrice(quantity);
+                res.status(200).json(q);
+            }
+            catch (e) {
+                res.status(500).json({
+                    message: e.message
+                });
+            }
+        };
         this.findByBrand = async (req, res) => {
             try {
                 let brand = req.query.nameBrand;
@@ -91,6 +116,10 @@ class HomeController {
         };
         this.sortPrice = async (req, res) => {
             let sort = await this.carService.sortPriceASC();
+            res.status(200).json(sort);
+        };
+        this.sortQuantity = async (req, res) => {
+            let sort = await this.carService.sortDownByQuantity();
             res.status(200).json(sort);
         };
         this.carService = CarService_1.default;

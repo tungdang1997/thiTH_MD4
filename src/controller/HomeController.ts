@@ -90,6 +90,33 @@ class HomeController {
             )
         }
     }
+
+    findByAboutPrice = async (req: Request, res: Response) => {
+        console.log(1)
+        try {
+            let price = req.query.price;
+            let p = await this.carService.findByAboutPrice(price)
+            res.status(200).json(p)
+        } catch (e) {
+            res.status(500).json({
+                    message: e.message
+                }
+            )
+        }
+    }
+
+    findByAboutQuantity = async (req: Request, res: Response) => {
+        try {
+            let quantity = req.query.quantity;
+            let q = await this.carService.findByAboutPrice(quantity)
+            res.status(200).json(q)
+        } catch (e) {
+            res.status(500).json({
+                    message: e.message
+                }
+            )
+        }
+    }
     findByBrand = async (req: Request, res: Response) => {
         try {
             let brand = req.query.nameBrand;
@@ -110,6 +137,11 @@ class HomeController {
 
 
 
+    }
+
+    sortQuantity = async (req: Request, res: Response)=> {
+        let sort = await this.carService.sortDownByQuantity()
+        res.status(200).json(sort)
     }
 }
 
